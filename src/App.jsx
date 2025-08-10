@@ -11,7 +11,7 @@ export default function App() {
     const [selectedGroup, setSelectedGroup] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
 
-    // Load state from localStorage on initial render
+    //? Load state from localStorage on initial render
     useEffect(() => {
         try {
             const savedGroups = localStorage.getItem('notesAppGroups');
@@ -29,7 +29,7 @@ export default function App() {
         }
     }, []);
 
-    // Save groups to localStorage whenever they change
+    //? Save groups to localStorage whenever they change
     useEffect(() => {
         try {
             localStorage.setItem('notesAppGroups', JSON.stringify(groups));

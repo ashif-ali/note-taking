@@ -13,12 +13,10 @@ const Sidebar = ({ groups, onGroupSelect, selectedGroup, onCreateGroupClick }) =
                     </div>
                 ))}
             </div>
-            <div className="sidebar-footer">
-                <button onClick={onCreateGroupClick} className="create-button create-group-button">
-                    <span>+</span>
-                    <span>Create New Group</span>
-                </button>
-            </div>
+            
+            <button onClick={onCreateGroupClick} className="create-group-button">
+                +
+            </button>
         </div>
     );
 };

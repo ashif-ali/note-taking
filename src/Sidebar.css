@@ -1,4 +1,5 @@
 .sidebar-container {
+  position: relative; 
   height: 100%;
   background-color: #f3f4f6;
   display: flex;
@@ -66,18 +67,27 @@
   white-space: nowrap;
 }
 
-.sidebar-footer {
-  padding: 1rem;
-}
 
 .create-group-button {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  width: 4rem;
+  height: 4rem;
+  background-color: #16008B;
+  color: white;
+  border-radius: 50%;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
+  font-size: 2.5rem;
+  font-weight: 300;
+  cursor: pointer;
+  box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease-in-out;
 }
 
-.create-group-button > span:first-child {
-  margin-right: 0.5rem;
-  font-size: 1.5rem;
+.create-group-button:hover {
+  transform: scale(1.05);
 }
