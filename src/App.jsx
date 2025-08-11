@@ -1,47 +1,63 @@
-import { useState, useEffect } from 'react';
-import './App.css'
-import NotesView from './NotesView.jsx';
-import CreateGroupPopup from './CreateGroupPopup.jsx';
-import Sidebar from './Sidebar.jsx';
-
+import { useState, useEffect } from "react";
+import "./App.css";
+import NotesView from "./NotesView.jsx";
+import CreateGroupPopup from "./CreateGroupPopup.jsx";
+import Sidebar from "./Sidebar.jsx";
 
 export default function App() {
-    const [groups, setGroups] = useState([]);
-    const [notes, setNotes] = useState([]);
+    //lazy initializer function to load state ONLY on the first render.
+    const [groups, setGroups] = useState(() => {
+        try {
+            const savedGroups = localStorage.getItem("notesAppGroups");
+            return savedGroups ? JSON.parse(savedGroups) : [];
+        } catch (error) {
+            console.error("Failed to parse groups from localStorage", error);
+            return [];
+        }
+    });
+    const [notes, setNotes] = useState(() => {
+        try {
+            const savedNotes = localStorage.getItem("notesAppNotes");
+            return savedNotes ? JSON.parse(savedNotes) : [];
+        } catch (error) {
+            console.error("Failed to parse notes from localStorage", error);
+            return [];
+        }
+    });
     const [selectedGroup, setSelectedGroup] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
 
-    //? Load state from localStorage on initial render
-    useEffect(() => {
-        try {
-            const savedGroups = localStorage.getItem('notesAppGroups');
-            const savedNotes = localStorage.getItem('notesAppNotes');
-            if (savedGroups) {
-                setGroups(JSON.parse(savedGroups));
-            }
-            if (savedNotes) {
-                setNotes(JSON.parse(savedNotes));
-            }
-        } catch (error) {
-            console.error("Failed to parse from localStorage", error);
-            setGroups([]);
-            setNotes([]);
-        }
-    }, []);
+    // //? Load state from localStorage on initial render
+    // useEffect(() => {
+    //     try {
+    //         const savedGroups = localStorage.getItem("notesAppGroups");
+    //         const savedNotes = localStorage.getItem("notesAppNotes");
+    //         if (savedGroups) {
+    //             setGroups(JSON.parse(savedGroups));
+    //         }
+    //         if (savedNotes) {
+    //             setNotes(JSON.parse(savedNotes));
+    //         }
+    //     } catch (error) {
+    //         console.error("Failed to parse from localStorage", error);
+    //         setGroups([]);
+    //         setNotes([]);
+    //     }
+    // }, []);
 
     //? Save groups to localStorage whenever they change
     useEffect(() => {
         try {
-            localStorage.setItem('notesAppGroups', JSON.stringify(groups));
+            localStorage.setItem("notesAppGroups", JSON.stringify(groups));
         } catch (error) {
             console.error("Failed to save groups to localStorage", error);
         }
     }, [groups]);
-    
+
     // Save notes to localStorage whenever they change
     useEffect(() => {
         try {
-            localStorage.setItem('notesAppNotes', JSON.stringify(notes));
+            localStorage.setItem("notesAppNotes", JSON.stringify(notes));
         } catch (error) {
             console.error("Failed to save notes to localStorage", error);
         }
@@ -58,7 +74,7 @@ export default function App() {
             id: crypto.randomUUID(),
             text: noteText,
             groupId: selectedGroup.id,
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
         };
         setNotes([...notes, newNote]);
     };
@@ -68,7 +84,7 @@ export default function App() {
     };
 
     const filteredNotes = notes
-        .filter(note => note.groupId === selectedGroup?.id)
+        .filter((note) => note.groupId === selectedGroup?.id)
         .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
     return (
@@ -77,7 +93,7 @@ export default function App() {
                 <CreateGroupPopup
                     onClose={() => setShowPopup(false)}
                     onGroupCreate={handleGroupCreate}
-                    existingGroupNames={groups.map(g => g.name)}
+                    existingGroupNames={groups.map((g) => g.name)}
                 />
             )}
             <Sidebar
