@@ -1,55 +1,60 @@
 .popup-overlay {
-  position: fixed;
+ position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(46, 49, 49, 0.35); /* A slightly more subtle overlay */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 50;
-  padding: 1rem;
-}
+  padding: 1rem;}
+
 
 .popup-container {
   background: white;
-  border-radius: 0.5rem;
+  border-radius: 1rem; /* More rounded corners */
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  padding: 1.5rem;
+  padding: 2rem 2.5rem; /* More padding */
   width: 100%;
-  max-width: 450px;
+  max-width: 700px; /* Adjusted max-width */
 }
 
 .popup-title {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 2rem; /* Larger title */
+  font-weight: 600;
   margin-top: 0;
-  margin-bottom: 1.5rem;
-  color: #1f2937;
+  margin-bottom: 2.5rem; /* More space below title */
+  color: #000000;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  /* Use Flexbox for side-by-side layout */
+  display: flex;
+  align-items: center;
+  gap: 2rem; /* Space between label and input */
 }
 
 .form-label {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #374151;
-  margin-bottom: 0.5rem;
-  display: block;
+  font-size: 1.5rem; /* Larger label */
+  font-weight: 500;
+  color: #000000;
+  flex-shrink: 0; /* Prevent label from shrinking */
 }
 
 .form-input {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
-  font-size: 1rem;
+  padding: 0.8rem 1rem;
+  border: 2px solid #CCCCCC; /* Slightly thicker border */
+  border-radius: 2rem; /* Pill-shaped input */
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #939393;
 }
 
 .form-input:focus {
   outline: none;
   border-color: #3b82f6;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
 .color-palette {
@@ -63,8 +68,8 @@
   height: 2.5rem;
   border-radius: 50%;
   cursor: pointer;
-  border: none;
-  transition: transform 0.2s;
+  border: 2px solid transparent; /* Add a transparent border for spacing */
+  transition: all 0.2s;
 }
 
 .color-button:hover {
@@ -72,27 +77,37 @@
 }
 
 .color-button.selected {
-   box-shadow: 0 0 0 4px white, 0 0 0 6px #3b82f6;
+   border-color: #001F8B;
+   box-shadow: none; /* Remove the old shadow */
 }
 
 .error-message {
   color: #ef4444;
   margin-bottom: 1rem;
+  text-align: right;
+}
+/* New container to help position the button */
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
 }
 
 .create-button {
-  width: 100%;
-  background-color: #2563eb;
+  width: auto; /* Let the button size itself */
+  min-width: 150px; /* Give it a minimum width */
+  background-color: #001F8B;
   color: white;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  font-size: 1.125rem;
-  font-weight: 600;
+  padding: 0.8rem 2rem; /* Adjust padding */
+  border-radius: 0.75rem; /* Rounded corners */
+  font-size: 1.25rem;
+  font-weight: 500;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s;
+  float: right; /* Remove float */
 }
 
 .create-button:hover {
-  background-color: #1d4ed8;
+  background-color: #0033a0; /* A slightly lighter blue on hover */
 }

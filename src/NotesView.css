@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   background-color: #DAE5F5;
+  min-width: 0;
 }
 
 .welcome-view {
@@ -15,6 +16,7 @@
   text-align: center;
   padding: 2rem;
   color: #6b7280;
+  position: relative; 
 }
 
 
@@ -109,6 +111,14 @@
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
 }
 
+.note-card > .note-timestamp { /* Changed from p:last-child */
+  text-align: right;
+  font-size: 0.875rem; /* A bit larger for better readability */
+  color: #4a5568;    /* A slightly darker grey */
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
 .send-button {
   position: absolute;
   bottom: 1rem;
@@ -129,4 +139,39 @@
 .send-button > svg {
   width: 2rem;
   height: 2rem;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  font-weight: bolder;
+  color: #fff;
+  cursor: pointer;
+  margin-right: 1rem;
+  padding: 0 0.5rem;
+}
+
+/* On desktop, the back button is not needed */
+@media (min-width: 768px) {
+    .back-button {
+        display: none;
+    }
+}
+
+.welcome-footer {
+  position: absolute;
+  bottom: 2rem; /* Adjust as needed */
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2F2F2F; /* A dark grey color for the text */
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.lock-icon {
+  margin-right: 0.5rem;
 }

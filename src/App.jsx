@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
+import Sidebar from "./Sidebar.jsx";
 import NotesView from "./NotesView.jsx";
 import CreateGroupPopup from "./CreateGroupPopup.jsx";
-import Sidebar from "./Sidebar.jsx";
 
 export default function App() {
-    //lazy initializer function to load state ONLY on the first render.
+    // (useState and useEffect hooks for data remain the same)
     const [groups, setGroups] = useState(() => {
         try {
             const savedGroups = localStorage.getItem("notesAppGroups");
@@ -15,6 +15,7 @@ export default function App() {
             return [];
         }
     });
+
     const [notes, setNotes] = useState(() => {
         try {
             const savedNotes = localStorage.getItem("notesAppNotes");
@@ -24,43 +25,19 @@ export default function App() {
             return [];
         }
     });
+
     const [selectedGroup, setSelectedGroup] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
 
-    // //? Load state from localStorage on initial render
-    // useEffect(() => {
-    //     try {
-    //         const savedGroups = localStorage.getItem("notesAppGroups");
-    //         const savedNotes = localStorage.getItem("notesAppNotes");
-    //         if (savedGroups) {
-    //             setGroups(JSON.parse(savedGroups));
-    //         }
-    //         if (savedNotes) {
-    //             setNotes(JSON.parse(savedNotes));
-    //         }
-    //     } catch (error) {
-    //         console.error("Failed to parse from localStorage", error);
-    //         setGroups([]);
-    //         setNotes([]);
-    //     }
-    // }, []);
+    // NEW state to manage mobile view
+    const [isNotesViewVisible, setIsNotesViewVisible] = useState(false);
 
-    //? Save groups to localStorage whenever they change
     useEffect(() => {
-        try {
-            localStorage.setItem("notesAppGroups", JSON.stringify(groups));
-        } catch (error) {
-            console.error("Failed to save groups to localStorage", error);
-        }
+        localStorage.setItem("notesAppGroups", JSON.stringify(groups));
     }, [groups]);
 
-    // Save notes to localStorage whenever they change
     useEffect(() => {
-        try {
-            localStorage.setItem("notesAppNotes", JSON.stringify(notes));
-        } catch (error) {
-            console.error("Failed to save notes to localStorage", error);
-        }
+        localStorage.setItem("notesAppNotes", JSON.stringify(notes));
     }, [notes]);
 
     const handleGroupCreate = (groupData) => {
@@ -79,8 +56,15 @@ export default function App() {
         setNotes([...notes, newNote]);
     };
 
+    // UPDATED to handle mobile view
     const handleGroupSelect = (group) => {
         setSelectedGroup(group);
+        setIsNotesViewVisible(true); // Show notes view on mobile
+    };
+
+    // NEW function to go back to the group list on mobile
+    const handleBackToGroups = () => {
+        setIsNotesViewVisible(false);
     };
 
     const filteredNotes = notes
@@ -96,17 +80,40 @@ export default function App() {
                     existingGroupNames={groups.map((g) => g.name)}
                 />
             )}
-            <Sidebar
-                groups={groups}
-                onGroupSelect={handleGroupSelect}
-                selectedGroup={selectedGroup}
-                onCreateGroupClick={() => setShowPopup(true)}
-            />
-            <NotesView
-                selectedGroup={selectedGroup}
-                notes={filteredNotes}
-                onAddNote={handleAddNote}
-            />
+
+            {/* --- Mobile Layout --- */}
+            <div className="mobile-layout">
+                {!isNotesViewVisible ? (
+                    <Sidebar
+                        groups={groups}
+                        onGroupSelect={handleGroupSelect}
+                        selectedGroup={selectedGroup}
+                        onCreateGroupClick={() => setShowPopup(true)}
+                    />
+                ) : (
+                    <NotesView
+                        selectedGroup={selectedGroup}
+                        notes={filteredNotes}
+                        onAddNote={handleAddNote}
+                        onBack={handleBackToGroups} // Pass the back handler
+                    />
+                )}
+            </div>
+
+            {/* --- Desktop Layout --- */}
+            <div className="desktop-layout">
+                <Sidebar
+                    groups={groups}
+                    onGroupSelect={handleGroupSelect}
+                    selectedGroup={selectedGroup}
+                    onCreateGroupClick={() => setShowPopup(true)}
+                />
+                <NotesView
+                    selectedGroup={selectedGroup}
+                    notes={filteredNotes}
+                    onAddNote={handleAddNote}
+                />
+            </div>
         </div>
     );
 }
