@@ -3,7 +3,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #f9fafb;
+  background-color: #DAE5F5;
 }
 
 .welcome-view {
@@ -17,28 +17,31 @@
   color: #6b7280;
 }
 
-.welcome-view > svg {
-  width: 10rem;
-  height: 10rem;
-  color: #d1d5db;
-  margin-bottom: 1rem;
-}
+
 .welcome-view > h2 {
   font-size: 2.25rem;
   font-weight: bold;
-  color: #374151;
+  color: #000;
   margin: 0;
 }
 .welcome-view > p {
+  color: #000;
   margin-top: 0.5rem;
-  max-width: 24rem;
+  max-width: 30rem;
+  font-size: 1.03rem;
+  line-height: 1.5;
+}
+.welcome-image {
+  max-width: 80%;
+  height: auto;
+  margin-bottom: 2rem;
 }
 
 .notes-header {
   display: flex;
   align-items: center;
   padding: 1rem;
-  background-color: #f3f4f6;
+  background-color: #001F8B;
   border-bottom: 1px solid #e5e7eb;
   flex-shrink: 0;
 }
@@ -46,7 +49,7 @@
 .notes-header > h2 {
   font-size: 1.25rem;
   font-weight: bold;
-  color: #1f2937;
+  color: #FFFFFF;
   margin: 0;
 }
 
@@ -80,7 +83,7 @@
 
 .notes-footer {
   padding: 1rem;
-  background-color: #f3f4f6;
+  background-color: #001F8B;
   border-top: 1px solid #e5e7eb;
 }
 
